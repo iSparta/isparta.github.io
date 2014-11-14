@@ -53,27 +53,63 @@ function apngviewerInit(){
             if(img.type=="image/png"){
                 $(".preview_area .txt1").hide();
                 $(".preview_area .txt2").hide();
-                delFiles();
+                // delFiles();
+                $(".preview_area").find(".preview").remove();
                 $(".preview_area .loading").show();
                 var reader = new FileReader();
                 var d = new Deferred();
                 reader.readAsDataURL(img);
-                var xhr = new XMLHttpRequest();
-                xhr.open("post", "upload.php", true);
-                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-                xhr.addEventListener("load", function(e){
-                    FileName=e.target.responseText;
-                     $(".preview_area .loading").hide();
-                    var url="upload/"+e.target.responseText;
-                    $(".preview_area .preview").remove();
-                    $('<div class="preview"><img src="'+url+'"/></div>').appendTo($(".preview_area"));
 
-                    APNG.animateImage($(".preview img")[0]);
-                }, false);
-                var fd = new FormData();
-                fd.append('xfile', img);
+                reader.onload=function(e){
+                    // console.log(e.target.result);
+                    var url=e.target.result;
+                    var imgDom=$('<div class="preview"><img src="'+url+'"/></div>').appendTo($(".preview_area")).find("img");
 
-                xhr.send(fd);
+                    var reader = new FileReader();
+                    var d = new Deferred();
+                    reader.readAsBinaryString(img);
+
+                    reader.onload=function(e){
+                        // console.log(e.target.result);
+                        var url=e.target.result;
+                        url=encodeURI(url);
+                        // $('<div class="preview"><img  data-src="'+url+'"/></div>').appendTo($(".preview_area"));
+                        imgDom.attr("data-src",url);
+                        APNG.animateImage(imgDom[0]);
+                        $(".preview_area .loading").hide();
+                    }
+                    
+                }
+
+
+                // var reader = new FileReader();
+                // var d = new Deferred();
+                // reader.readAsBinaryString(img);
+
+                // reader.onload=function(e){
+                //     // console.log(e.target.result);
+                //     var url=e.target.result;
+                //     url=encodeURI(url);
+                //     $('<div class="preview"><img  data-src="'+url+'"/></div>').appendTo($(".preview_area"));
+                //     APNG.animateImage($(".preview img")[0]);
+                // }
+
+                // var xhr = new XMLHttpRequest();
+                // xhr.open("post", "upload.php", true);
+                // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                // xhr.addEventListener("load", function(e){
+                //     FileName=e.target.responseText;
+                //      $(".preview_area .loading").hide();
+                //     var url="upload/"+e.target.responseText;
+                //     $(".preview_area .preview").remove();
+                //     $('<div class="preview"><img src="'+url+'"/></div>').appendTo($(".preview_area"));
+
+                //     APNG.animateImage($(".preview img")[0]);
+                // }, false);
+                // var fd = new FormData();
+                // fd.append('xfile', img);
+
+                // xhr.send(fd);
             }else{
                 $(".preview_area .txt1").show();
                 $(".preview_area .txt2").hide();                
