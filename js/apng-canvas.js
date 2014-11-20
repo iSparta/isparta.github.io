@@ -11,7 +11,7 @@
     var
             global = (function(){ return this; })(),
             table = new Array(256);
-
+   
     for(var i=0; i<256; i++) {
         var c=i;
         for (var k=0; k<8; k++) c = (c&1) ? 0xEDB88320 ^ (c>>>1) : c>>>1;
@@ -572,7 +572,7 @@
      * @param url
      */
     var loadBinaryData = function(url) {
-
+        
         if(url.indexOf("http")>=0){
         var d = new Deferred();
 
@@ -580,7 +580,8 @@
 
         var BlobBuilder = (global.BlobBuilder || global.WebKitBlobBuilder);
         // IE9
-        console.log(global)
+
+        
         var useResponseBody = (typeof xhr.responseBody != "undefined");
         // Chrome
         var useResponseType = (typeof xhr.responseType != "undefined" && typeof BlobBuilder != "undefined");

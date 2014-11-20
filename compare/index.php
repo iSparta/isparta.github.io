@@ -4,43 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>动态图对比</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
     <body>
         <h1>动态图对比<span class="tips">提示：可以按住"ctrl"和"+"键放大对比;可以在右边选择背景颜色</h1>
-            
-            <script id="j-tmpl" type="text/template">         
-            <div class="imgcont clearfix" id="imgcont1">
-                <div class="img">
-                    <img src="<?php echo $gifimg; ?>"/>
-                    <p>GIF</p>
-                    <p>帧数：<strong><?php echo $num[$i] ?></strong>帧</p>
-                    <p>大小：<strong><?php echo round(intval(filesize($gifimg))/1024, 2) ?></strong>k</p>
-                </div>
-                <div class="img">
-                    <img src="<?php echo $apngimg; ?>"/>
-                    <p>APNG</p>
-                     <p>帧数：<strong><?php echo $num[$i] ?></strong>帧</p>
-                    <p>大小：<strong><?php echo round(intval(filesize($apngimg))/1024, 2) ?></strong>k</p>
-                </div>
-                 <div class="img" style="display:none" >
-                    
-                    <img src="<?php echo $lossimg; ?>"/>
-                    <p>PNG 有损后转换</p>
-                     <p>帧数：<strong><?php echo $num[$i] ?></strong>帧</p>
-                    <p>大小：<strong><?php echo round(intval(filesize($lossimg))/1024, 2) ?></strong>k</p>
-                </div>
-                <div class="img" style="display:none">
-                    
-                    <img src="<?php echo $apnglossimg; ?>"/>
-                    <p>APNG 有损</p>
-                     <p>帧数：<strong><?php echo $num[$i] ?></strong>帧</p>
-                    <p>大小：<strong><?php echo round(intval(filesize($apnglossimg))/1024, 2) ?></strong>k</p>
-                </div>
-               
-
+            <div class="container" id="container">
                 
             </div>
+           
+            
+            <script id="j-tmpl" type="text/template">         
+            
+                {{ for(var j=0;j<it[0].data.length;j++) { }}
+                    <div class="imgcont clearfix">
+                        {{ for(var i=0;i<it.length;i++) { }}
+                            <div class="img">
+                                <img src="{{=it[i].data[j].src}}"/>
+                                <p>{{=it[i].desc}}</p>
+                                <p>帧数：<strong>{{=it[i].data[j].num}}</strong>帧</p>
+                                <p>大小：<strong>{{=it[i].data[j].size}}</strong>k</p>
+                            </div>
+                        {{ } }}
+                    </div>
+
+                {{ } }}
+                
+            
             </script>
             
             
@@ -85,73 +74,27 @@
         <script type="text/javascript" src="../js/doT.js"></script>
         
         <script type="text/javascript">
-        function getImageSize(url) { 
+        function getImageSize(url,callback) { 
+            
             var xhr = new XMLHttpRequest();
-
-             var BlobBuilder = (document.BlobBuilder || document.WebKitBlobBuilder);
-            // console.log(url)
-            xhr.open('GET', url, true);
-            
-            xhr.overrideMimeType('text/plain; charset=x-user-defined');
-            
-            xhr.onreadystatechange = function(e) {
-                
-                if (this.readyState == 4 && this.status == 200) {
-                    var bb = new BlobBuilder();
-                    bb.append(this.response);
-                    var reader = new FileReader();
-                    reader.onload = function(e) { 
-                        console.log(e)
-                    };
-                    reader.readAsBinaryString(bb.getBlob());
-                }
+            xhr.open('HEAD', url, true);
+            xhr.onreadystatechange = function(){
+              if ( xhr.readyState == 4 ) {
+                if ( xhr.status == 200 ) {
+                   
+                  callback(xhr.getResponseHeader('Content-Length'))
+                } 
+              }
             };
-            xhr.send();
+            xhr.send(null);
         } 
-        $(function(){
-            var namepre1="image/dongtai/";
-            var num=[16,6,30,30,17,12,30,12,30,12,10,10,10,12,18,11,25];
-            var gifimg=[];
-            var apngimg=[];
-            var lossimg=[];
-            var apnglossimg=[];
-            for(var i=1;i<11;i++){
-                // gifimg="image/dongtai/gif/"+i+".gif";
-                // apngimg="image/dongtai/apng/"+i+".png";
-                // lossimg="image/dongtai/loss/"+i+".png";
-                // apnglossimg="image/dongtai/apngloss/"+i+".png";
-                gifimg[i]={};
-                gifimg[i].src="image/dongtai/gif/"+i+".gif";
-                gifimg[i].num=num[i-1];
-                getImageSize(gifimg[i].src)
-                // var reader = new FileReader();
-                // var d = new Deferred();
-
-                
-
-                // reader.readAsDataURL(gifimg[i].src);
-                // reader.onload=function(e){
-                //     console.log(e)
-                // }
-                // var image = new Image();
-                
-                // image.onload = (function (obj,img){
-                //     return function(){
-                //        console.log(obj)
-                //        if (obj.readyState == "complete");
-                //        {
-                //             initFileSize=obj.fileSize;
-                //             var fileSize=Math.ceil(initFileSize/1024);
-                //             console.log(filesize)
-                //         }
-                //     }
-                // })(image,gifimg);
-                // image.src=gifimg[i].src;
-
-            };
-
-        });
-        $(function(){
+        function showRow(index){
+            $(".show .item:nth-child("+(index+1)+")").find("input").attr("checked","true");
+            
+            $(".imgcont .img:nth-child("+(index+1)+")").show();
+            
+        }
+        function render(){
             APNG.ifNeeded(function() {
                 for (var i = 0; i < document.images.length; i++) {
                     var img = document.images[i];
@@ -159,6 +102,19 @@
                     if (/\.png$/i.test(img.src)) APNG.animateImage(img);
                 }
             });
+            if(location.hash.replace("#","")==""){
+                location.hash="#1234";
+            }
+            var hash=location.hash.replace("#","").split("");
+
+            var nowhash=location.hash;
+            $(".show input").removeAttr("checked");
+            $(".imgcont .img").hide();
+           
+            for(var i=0;i<hash.length;i++){
+                
+                showRow(parseInt(hash[i])-1);
+            }
             $(".color div").click(function(){
                 $("html")[0].className="";
                 $("html").addClass($(this)[0].className)
@@ -169,14 +125,72 @@
                 
                 if(this.checked){
                     $(".imgcont .img:nth-child("+id+")").show();
-
+                    nowhash=nowhash+id;
                 }else{
                     $(".imgcont .img:nth-child("+id+")").hide();
+                    nowhash=nowhash.replace(id,"");
                 }
+                location.hash=nowhash;
 
             })
+        }
+        $(function(){
+            var namepre1="image/dongtai/";
+            var imgLength=10;
+            var num=[16,6,30,30,17,12,30,12,30,12,10,10,10,12,18,11,25];
+            
+            var imgs=[{
+                    name:"gif",
+                    desc:"GIF",
+                    ext:"gif",
+                    data:[]
+                },
+                {
+                    name:"apng",
+                    desc:"无损APNG",
+                    ext:"png",
+                    data:[]
+                },
+                {
+                    name:"loss",
+                    desc:"有损压缩后合并",
+                    ext:"png",
+                    data:[]
+                },
+                {
+                    name:"apngloss",
+                    desc:"APNG有损压缩算法",
+                    ext:"png",
+                    data:[]
+                }
+            ]
+            var total=0;
+            for(var i=0;i<imgs.length;i++){
+                for(var j=0;j<imgLength;j++){
+
+                    imgs[i].data[j]={};
+                    imgs[i].data[j].src="image/dongtai/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
+                    imgs[i].data[j].num=num[j];
+                    getImageSize(imgs[i].data[j].src,(function(i,j){
+                        return function(size){
+                            imgs[i].data[j].size=(size/1024).toFixed(2);
+                            total++;
+                            if(total==imgLength*4){
+                                var template=$("#j-tmpl").html();
+                                $("#container").html(doT.template(template)(imgs));
+                                render();
+                            }
+                        }
+
+                    })(i,j));
+                }
+            }
+           
 
         });
+        
+            
+       
         // 模版
 
         </script>
