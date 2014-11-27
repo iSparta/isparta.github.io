@@ -1,5 +1,5 @@
 function downloadInit(){
-    var macUrl="setup/iSparta_mac.zip";
+    var macUrl="setup/iSparta_mac.exe";
     var windowsUrl="setup/iSparta_windows.exe";
     if(getOsInfo()=="mac"){
         $("#download_btn").attr("href",macUrl);
