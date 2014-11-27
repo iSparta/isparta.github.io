@@ -1,8 +1,10 @@
 function downloadInit(){
-    var macUrl="setup/iSparta_mac.exe";
+    var macUrl="setup/iSparta_mac.zip";
     var windowsUrl="setup/iSparta_windows.exe";
     if(getOsInfo()=="mac"){
-        $("#download_btn").attr("href",macUrl);
+
+        // $("#download_btn").attr("href",macUrl);
+        $(".btn-area").removeClass("windows").addClass("mac");
     }
 }
 function apngviewerInit(){

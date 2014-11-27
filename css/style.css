@@ -1,4 +1,5 @@
 body {background: #631515;margin: 0 auto;font-family: "microsoft yahei",Arial;font-size: 12px;}
+body>a{display: none;}
 .clearfix:after{content:"\0020";height:0px; display: block; clear:both; overflow: hidden; } 
 h1,h2,h3,h4,h5,p{margin:0px;}
 .icon{background: url(../img/icon.png) no-repeat 0px 0px;display: inline-block;*zoom:1;*display: inline;width: 222px;height:220px;}
@@ -23,6 +24,10 @@ textarea{width:400px;height:110px;line-height: 20px;border:#bababa solid 1px;out
 .header .download-area .info{float:left;font-size: 14px;padding-top:80px;}
 .header .download-area .preview{float:right;}
 .header .btn-area{margin:10px 0px;}
+.btn-area.windows #download_btn_windows{display: block;}
+.btn-area.windows #download_btn_mac{display: none;}
+.btn-area.mac #download_btn_windows{display: none;}
+.btn-area.mac #download_btn_mac{display: block;}
 
 .header .btn-download{font-size: 20px;display: block;border-radius: 6px;border:#fff 1px solid;height:50px;line-height: 50px;text-align: center;}
 .header .btn-download:hover{text-decoration: none;background: #fff;color:#e85244;}
