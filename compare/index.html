@@ -107,6 +107,9 @@
             if(location.hash.replace("#","")==""){
                 location.hash="#1234";
             }
+            if(location.hash.indexOf("5")>=0){
+                $(".show").hide();
+            }
             var hash=location.hash.replace("#","").split("");
 
             var nowhash=location.hash;
@@ -173,6 +176,9 @@
                     imgs[i].data[j]={};
                     imgs[i].data[j].src="image/dongtai/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
                     imgs[i].data[j].num=num[j];
+                    imgs[i].data[j].size="...";
+                    
+                    
                     getImageSize(imgs[i].data[j].src,(function(i,j){
                         return function(size){
                             imgs[i].data[j].size=(size/1024).toFixed(2);
@@ -187,7 +193,9 @@
                     })(i,j));
                 }
             }
-           
+           var template=$("#j-tmpl").html();
+            $("#container").html(doT.template(template)(imgs));
+            render();
 
         });
         
