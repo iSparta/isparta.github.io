@@ -1,3 +1,5 @@
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F23f9c3c93c48f026af9de893ff601912' type='text/javascript'%3E%3C/script%3E"));
 function downloadInit(){
     var macUrl="setup/iSparta_mac.zip";
     var windowsUrl="setup/iSparta_windows.exe";
