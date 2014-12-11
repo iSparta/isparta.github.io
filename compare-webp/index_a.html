@@ -2,7 +2,7 @@
 <html class="blank">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>示例</title>
+    <title>WebP 示例 (Animated WebP)</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
@@ -42,19 +42,19 @@
     <div class="show">
         <div class="item">
             <input type="checkbox" id="check_gif" name="check_gif" checked="checked" data-to="1"/>
-            <label for="check_gif">GIF</label>
+            <label for="check_gif">GIF 原图</label>
         </div>
         <div class="item">
             <input type="checkbox" id="check_apng" name="check_apng" checked="checked" data-to="2"/>
-            <label for="check_apng">apng</label>
+            <label for="check_apng">GIF 压缩</label>
         </div>
         <div class="item">
             <input type="checkbox" id="check_loss" name="check_loss" data-to="3"/>
-            <label for="check_loss">apngloss1</label>
+            <label for="check_loss">APNG</label>
         </div>
         <div class="item">
             <input type="checkbox" id="check_apngloss" name="check_apngloss" data-to="4"/>
-            <label for="check_apngloss">apngloss2</label>
+            <label for="check_apngloss">Animated WebP</label>
         </div>
     </div>
 
@@ -124,32 +124,31 @@
         })
     }
     $(function(){
-        var namepre1="image/dongtai/";
-        var imgLength=10;
-        var num=[16,6,30,30,17,12,30,12,30,12,10,10,10,12,18,11,25];
+        var imgLength=5;
+        var num=[16,6,30,30,17];
         
         var imgs=[{
                 name:"gif",
-                desc:"GIF",
+                desc:"GIF原图",
                 ext:"gif",
                 data:[]
             },
             {
-                name:"apng",
-                desc:"无损APNG",
-                ext:"png",
-                data:[]
-            },
-            {
-                name:"loss",
-                desc:"有损压缩后合并",
-                ext:"png",
+                name:"gif_lossy",
+                desc:"GIF 压缩",
+                ext:"gif",
                 data:[]
             },
             {
                 name:"apngloss",
-                desc:"APNG有损压缩算法",
+                desc:"APNG",
                 ext:"png",
+                data:[]
+            },
+            {
+                name:"gif_webp",
+                desc:"Animated WebP",
+                ext:"webp",
                 data:[]
             }
         ]
@@ -158,7 +157,7 @@
             for(var j=0;j<imgLength;j++){
 
                 imgs[i].data[j]={};
-                imgs[i].data[j].src="image/dongtai/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
+                imgs[i].data[j].src="image/gif_webp/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
                 imgs[i].data[j].num=num[j];
                 imgs[i].data[j].size="...";
                 

@@ -1,25 +1,19 @@
 body {
-   
     margin: 0 auto;
-    width: 1004px;
+    width: 1110px;
     font-family: "microsoft yahei";
-    
 }
 .clearfix:after{
     content:"\0020";
-    height:0px;
-    display: block;
-    clear:both;
-    overflow: hidden;
+    display: table;
+    clear: both;
 }
 h1 {
     padding-left: 10px;
     margin: 0;
 }
-canvas
-{
+canvas {
     border: #ccc 1px solid;
-    
 }
 strong{color:#f00;}
 .container{
@@ -32,9 +26,9 @@ strong{color:#f00;}
 hr{margin:20px 0; border: #555 1px solid;}
 h1{background: #aaa;}
 .tips{color:#444;font-size: 14px;margin-left:30px;}
-.imgcont{}
-.imgcont .img{float:left;text-align: center;font-size: 14px;line-height: 18px;margin-right:20px;width:200px;margin-bottom:10px;}
+.imgcont .img{float:left;text-align: center;font-size: 14px;line-height: 18px;width:200px;margin-bottom:10px;margin-right:24px;}
 .imgcont img{width:200px;height:200px;}
+.imgcont .img:last-child {margin-right:0;}
 .imgcont .img p{padding:0px 10px;background: #eee;margin:0px;}
 
 .color{position: fixed;top:50px;right:0px;padding:10px;background: #aaa;}
@@ -56,7 +50,7 @@ h1{background: #aaa;}
 
 .show{position: fixed;bottom:0px;right:0px;padding:10px;background: #aaa;}
 .show:after{content:"";display: block;height:0px;overflow: hidden;clear:both;}
-.show .item{height:20px;margin-bottom: 0px;float:left;padding-right: 10px;}
+.show .item{height:20px;margin-bottom: 0px;padding-right: 10px;}
 
 .container{text-align: center;}
 .container .loading{text-align: center;margin-top:200px;}
