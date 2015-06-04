@@ -1,0 +1,73 @@
+<html>
+<head> 
+    <title>APNG test</title>
+    <script type="text/javascript" src="src/crc32.js"></script>
+    <script type="text/javascript" src="src/udeferred.js"></script>
+    <script type="text/javascript" src="src/apng-canvas.js"></script>
+</head>
+<body id="body">
+    <img src="test.png" style="width:200px;">
+    <div>
+    <button id="stop">stop</button>
+    <button id="play">play</button>
+    <p>
+    <input id="input_goto" value="55" type="text">
+    <button id="goto">goto</button>
+    </p>
+    <p>
+    <input id="input_playto" value="28" type="text">
+    <button id="playto">playto</button>
+    </p>
+    </div>
+    <!-- <img src="APNG-cube.png"> -->
+    <script type="text/javascript">
+        function $(o){
+            return document.getElementById(o);
+        }
+        
+            for (var i = 0; i < document.images.length; i++) {
+                var img = document.images[i];
+                if (/\.png$/i.test(img.src)){
+
+                    var apng= APNG.animateImage(img);
+                    apng.done(function(ani){
+                        // listen playing,you can get current frame
+                        ani.playing=function(t){
+                            console.log(t)
+                            if(t==20){
+                                ani.stop();
+                            }
+                        }
+                        $("stop").addEventListener("click",function(){
+                            // stop apng
+                            ani.stop().done(function(){
+                                console.log("stop")
+                            });
+                        })
+                        $("play").addEventListener("click",function(){
+                            // play apng
+                            ani.play().done(function(){
+                                console.log("play")
+                            });
+                        });
+                        $("goto").addEventListener("click",function(){
+                            var val=$("input_goto").value;
+                            // goto the frame
+                            ani.goto(parseInt(val)).done(function(){
+                                console.log("goto")
+                            });
+                        });
+                        $("playto").addEventListener("click",function(){
+                            var val=$("input_playto").value;
+                            // playto the frame
+                            ani.playto(parseInt(val)).done(function(){
+                                console.log(ani.nowFrame)
+                            });
+                        });
+
+                    })
+                }
+            }
+        
+    </script>
+</body>
