@@ -4,20 +4,25 @@
     <script type="text/javascript" src="src/crc32.js"></script>
     <script type="text/javascript" src="src/udeferred.js"></script>
     <script type="text/javascript" src="src/apng-canvas.js"></script>
+    <style type="text/css">
+        .container{width: 300px;margin:0 auto;}
+    </style>
 </head>
 <body id="body">
-    <img src="test.png" style="width:200px;">
-    <div>
-    <button id="stop">stop</button>
-    <button id="play">play</button>
-    <p>
-    <input id="input_goto" value="55" type="text">
-    <button id="goto">goto</button>
-    </p>
-    <p>
-    <input id="input_playto" value="28" type="text">
-    <button id="playto">playto</button>
-    </p>
+    <div class="container">
+        <img src="test.png" style="width:300px;">
+        <div>
+            <button id="stop">stop</button>
+            <button id="play">play</button>
+            <p>
+            <input id="input_goto" value="55" type="text">
+            <button id="goto">goto</button>
+            </p>
+            <p>
+            <input id="input_playto" value="28" type="text">
+            <button id="playto">playto</button>
+            </p>
+        </div>
     </div>
     <!-- <img src="APNG-cube.png"> -->
     <script type="text/javascript">
