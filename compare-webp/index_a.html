@@ -2,7 +2,7 @@
 <html class="blank">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>示例</title>
+    <title>WebP 示例 (Animated WebP)</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
@@ -22,7 +22,6 @@
                     <div class="img">
                         <img src="{{=it[i].data[j].src}}"/>
                         <p>{{=it[i].desc}}</p>
-                        <p>帧数：<strong>{{=it[i].data[j].num}}</strong>帧</p>
                         <p>大小：<strong>{{=it[i].data[j].size}}</strong>k</p>
                     </div>
                 {{ } }}
@@ -39,43 +38,35 @@
         <div class="blue"></div>
     </div>
 
-    <div class="show">
+   <!--  <div class="show">
         <div class="item">
             <input type="checkbox" id="check_gif" name="check_gif" checked="checked" data-to="1"/>
-            <label for="check_gif">GIF</label>
+            <label for="check_gif">GIF 原图</label>
         </div>
         <div class="item">
-            <input type="checkbox" id="check_apng" name="check_apng" checked="checked" data-to="2"/>
-            <label for="check_apng">apng</label>
+            <input type="checkbox" id="check_webp" name="check_webp" checked="checked" data-to="2"/>
+            <label for="check_webp">Animated WebP</label>
         </div>
-        <div class="item">
-            <input type="checkbox" id="check_loss" name="check_loss" data-to="3"/>
-            <label for="check_loss">apngloss1</label>
-        </div>
-        <div class="item">
-            <input type="checkbox" id="check_apngloss" name="check_apngloss" data-to="4"/>
-            <label for="check_apngloss">apngloss2</label>
-        </div>
-    </div>
+    </div> -->
 
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/apng-canvas.js"></script>
     <script type="text/javascript" src="../js/doT.js"></script>
     <script type="text/javascript">
 
-    function getImageSize(url,callback) { 
-        var xhr = new XMLHttpRequest();
-        xhr.open('HEAD', url, true);
-        xhr.onreadystatechange = function(){
-          if ( xhr.readyState == 4 ) {
-            if ( xhr.status == 200 ) {
+    // function getImageSize(url,callback) { 
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('HEAD', url, true);
+    //     xhr.onreadystatechange = function(){
+    //       if ( xhr.readyState == 4 ) {
+    //         if ( xhr.status == 200 ) {
                
-              callback(xhr.getResponseHeader('Content-Length'))
-            } 
-          }
-        };
-        xhr.send(null);
-    }
+    //           callback(xhr.getResponseHeader('Content-Length'))
+    //         } 
+    //       }
+    //     };
+    //     xhr.send(null);
+    // }
     function showRow(index){
         $(".show .item:nth-child("+(index+1)+")").find("input").attr("checked","true");
         $(".imgcont .img:nth-child("+(index+1)+")").show();
@@ -89,7 +80,7 @@
             }
         });
         if(location.hash.replace("#","")==""){
-            location.hash="#1234";
+            location.hash="#12";
         }
         if(location.hash.indexOf("5")>=0){
             $(".show").hide();
@@ -124,32 +115,21 @@
         })
     }
     $(function(){
-        var namepre1="image/dongtai/";
-        var imgLength=10;
-        var num=[16,6,30,30,17,12,30,12,30,12,10,10,10,12,18,11,25];
-        
+        var imgLength=2;
+        var size = [
+            [869,89.4],
+            [371,4.65]
+        ]
         var imgs=[{
                 name:"gif",
-                desc:"GIF",
+                desc:"GIF 原图",
                 ext:"gif",
                 data:[]
             },
             {
-                name:"apng",
-                desc:"无损APNG",
-                ext:"png",
-                data:[]
-            },
-            {
-                name:"loss",
-                desc:"有损压缩后合并",
-                ext:"png",
-                data:[]
-            },
-            {
-                name:"apngloss",
-                desc:"APNG有损压缩算法",
-                ext:"png",
+                name:"webp",
+                desc:"Animated WebP",
+                ext:"webp",
                 data:[]
             }
         ]
@@ -158,23 +138,21 @@
             for(var j=0;j<imgLength;j++){
 
                 imgs[i].data[j]={};
-                imgs[i].data[j].src="image/dongtai/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
-                imgs[i].data[j].num=num[j];
-                imgs[i].data[j].size="...";
+                imgs[i].data[j].src="image/gif_webp/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
+                imgs[i].data[j].size=size[i][j];
                 
                 
-                getImageSize(imgs[i].data[j].src,(function(i,j){
-                    return function(size){
-                        imgs[i].data[j].size=(size/1024).toFixed(2);
-                        total++;
-                        if(total==imgLength*4){
-                            var template=$("#j-tmpl").html();
-                            $("#container").html(doT.template(template)(imgs));
-                            render();
-                        }
-                    }
-
-                })(i,j));
+                // getImageSize(imgs[i].data[j].src,(function(i,j){
+                //     return function(size){
+                //         imgs[i].data[j].size=(size/1024).toFixed(2);
+                //         total++;
+                //         if(total==imgLength*4){
+                //             var template=$("#j-tmpl").html();
+                //             $("#container").html(doT.template(template)(imgs));
+                //             render();
+                //         }
+                //     }
+                // })(i,j));
             }
         }
        var template=$("#j-tmpl").html();

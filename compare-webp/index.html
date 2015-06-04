@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="blank">
+<head>
+    <meta charset="utf-8">
+    <title>WebP 示例 (PNG 转 WebP)</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+    <h1>示例<span class="tips">提示：可以按住"ctrl"和"+"键放大对比;可以在右边选择背景颜色</h1>
+
+    <div class="container" id="container">
+        <div class="loading">
+            <img src="image/loading.gif">
+        </div>
+    </div>
+    
+    <script id="j-tmpl" type="text/template">         
+        {{ for(var j=0; j<it[0].data.length; j++) { }}
+            <div class="imgcont clearfix">
+                {{ for(var i=0;i<it.length;i++) { }}
+                    <div class="img">
+                        <img src="{{=it[i].data[j].src}}"/>
+                        <p>{{=it[i].desc}}</p>
+                        <p>大小：<strong>{{=it[i].data[j].size}}</strong>k</p>
+                    </div>
+                {{ } }}
+            </div>
+        {{ } }}
+    </script>
+
+    <div class="color">
+        <div class="blank"></div>
+        <div class="white"></div>
+        <div class="transparent"></div>
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+    </div>
+
+    <div class="show">
+        <div class="item">
+            <input type="checkbox" id="check_png" name="check_png" checked="checked" data-to="1"/>
+            <label for="check_png">PNG原图</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="check_png_lossless" name="check_png_lossless" checked="checked" data-to="2"/>
+            <label for="check_png_lossless">PNG无损</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="check_webp_lossless" name="check_webp_lossless" checked="checked" data-to="3"/>
+            <label for="check_webp_lossless">WebP无损</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="check_png_lossy75" name="check_png_lossy75" checked="checked" data-to="4"/>
+            <label for="check_png_lossy75">PNG有损</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="check_webp_lossy75" name="check_webp_lossy75" checked="checked" data-to="5"/>
+            <label for="check_webp_lossy75">WebP有损</label>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/doT.js"></script>
+    <script type="text/javascript">
+
+    $(function(){
+        var imgLength = 10;
+        var size = [
+            [35.8,40.4,39.1,37.4,33.8,34.2,39.5,32.8,35.9,38.3],
+            [32.1,36.6,35.5,33.7,30.1,30.1,35.4,29.1,32.2,34.5],
+            [23.6,27.2,32.0,24.4,24.1,21.7,27.7,20.9,26.1,25.2],
+            [9.24,10.5,10.7,10.4,9.34,8.03,10.6,8.01,10.1,10.5],
+            [7.10,8.08,8.29,7.19,7.16,6.55,7.91,6.43,7.50,7.34]
+        ];
+        var imgs=[
+            {
+                name:"png",
+                desc:"PNG 原图",
+                ext:"png",
+                data:[]
+            },
+            {
+                name:"png_lossless",
+                desc:"PNG 无损",
+                ext:"png",
+                data:[]
+            },
+            {
+                name:"webp_lossless",
+                desc:"WebP 无损",
+                ext:"webp",
+                data:[]
+            },
+            {
+                name:"png_lossy75",
+                desc:"PNG 有损(75%)",
+                ext:"png",
+                data:[]
+            },
+            {
+                name:"webp_lossy75",
+                desc:"WebP 有损(75%)",
+                ext:"webp",
+                data:[]
+            }
+        ]
+        var total=0;
+        for(var i=0;i<imgs.length;i++){
+            for(var j=0;j<imgLength;j++){
+                imgs[i].data[j] = {};
+                imgs[i].data[j].src = "image/png_webp/"+imgs[i].name+"/"+(j+1)+"."+imgs[i].ext;
+                imgs[i].data[j].size = size[i][j];
+            }
+        }
+        var template=$("#j-tmpl").html();
+        $("#container").html(doT.template(template)(imgs));
+        render();
+    });
+
+
+    // 背景颜色选择
+    $(".color div").click(function(){
+        $("html")[0].className="";
+        $("html").addClass($(this)[0].className)
+    });
+
+
+    // 首次渲染
+    function render(){
+        if(location.hash.replace("#","")==""){
+            location.hash="#12345";
+        }
+        var hash=location.hash.replace("#","").split("");
+        var nowhash=location.hash;
+        $(".show input").removeAttr("checked");
+        $(".imgcont .img").hide();
+       
+        for(var i=0;i<hash.length;i++){
+            showRow(parseInt(hash[i])-1);
+        }
+        $(".color div").click(function(){
+            $("html")[0].className="";
+            $("html").addClass($(this)[0].className)
+        });
+
+        $(".show input").change(function(e){
+            var id=parseInt($(this).attr("data-to"));
+            
+            if(this.checked){
+                $(".imgcont .img:nth-child("+id+")").show();
+                nowhash=nowhash+id;
+            }else{
+                $(".imgcont .img:nth-child("+id+")").hide();
+                nowhash=nowhash.replace(id,"");
+            }
+            location.hash=nowhash;
+
+        })
+    }
+
+    function showRow(index){
+        $(".show .item:nth-child("+(index+1)+")").find("input").attr("checked","true");
+        $(".imgcont .img:nth-child("+(index+1)+")").show();
+    }
+    </script>
+</body>
+</html>
