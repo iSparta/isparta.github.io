@@ -29,6 +29,10 @@ strong{color:#f00;}
     position: absolute;
     top:0px;left:0px;opacity: .5
 }
+.apng-container canvas{
+    position: static;
+    top:0px;left:0px;opacity:1
+}
 hr{margin:20px 0; border: #555 1px solid;}
 h1{background: #aaa;}
 .tips{color:#444;font-size: 14px;margin-left:30px;}
