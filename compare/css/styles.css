@@ -89,4 +89,7 @@ h1{background: #aaa;}
       height: 2600px;
     overflow: hidden;
    }
+   .info{
+          background: #eee;
+   }
 }
