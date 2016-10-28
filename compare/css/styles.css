@@ -86,6 +86,6 @@ h1{background: #aaa;}
    .container{
       -webkit-transform-origin:0px 0px;
       -webkit-transform:scale(0.5);
-      
+      width:600px;
    }
 }
