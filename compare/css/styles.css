@@ -65,3 +65,21 @@ h1{background: #aaa;}
 .container{text-align: center;}
 .container .loading{text-align: center;margin-top:200px;}
 .container .loading img{width: 30px;}
+@media screen and (max-width: 500px) { 
+   h1{
+      display:none;
+   }
+   .color{
+      display:none;
+   }
+   .apng-container canvas{
+      border:none;
+   }
+   .show{
+      display:none;
+   }
+   .container{
+      -webkit-transform-origin:0px 0px;
+      -webkit-transform:scale(0.5);
+   }
+}
