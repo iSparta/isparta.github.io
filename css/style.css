@@ -24,15 +24,12 @@ textarea{width:400px;height:110px;line-height: 20px;border:#bababa solid 1px;out
 .header .download-area .info{float:left;font-size: 14px;padding-top:80px;}
 .header .download-area .preview{float:right;}
 .header .btn-area{margin:10px 0px;}
-.btn-area.windows #download_btn_windows{display: block;}
-.btn-area.windows #download_btn_mac{display: none;}
-.btn-area.mac #download_btn_windows{display: none;}
-.btn-area.mac #download_btn_mac{display: block;}
+.btn-area #download_btn{display: block;}
 
 .header .btn-download{font-size: 20px;display: block;border-radius: 6px;border:#fff 1px solid;height:50px;line-height: 50px;text-align: center;}
 .header .btn-download:hover{text-decoration: none;background: #fff;color:#e85244;}
 .header .version-area .now{float:left;}
-.header .version-area .other{float:left;color:#fff;margin-left:30px;display: none;}
+.header .version-area .date{float:left;margin-left:10px;}
 
 
 .sec-screen{background:rgba(245,245,245,.9);position: relative;z-index: 999;position: absolute;width:100%;left:0%;top:100%;box-shadow:0px 0px 10px  rgba(255,255,255,.5) }

@@ -1,12 +1,17 @@
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F23f9c3c93c48f026af9de893ff601912' type='text/javascript'%3E%3C/script%3E"));
 function downloadInit(){
-    var macUrl="setup/iSparta_mac.zip";
-    var windowsUrl="setup/iSparta_windows.exe";
-    if(getOsInfo()=="mac"){
-
-        // $("#download_btn").attr("href",macUrl);
-        $(".btn-area").removeClass("windows").addClass("mac");
+    var macUrl="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-mac.zip";
+    var win32Url="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-win32.zip";
+    var win64Url="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-win64.zip";
+    var unknownUrl="https://github.com/iSparta/iSparta/releases";
+    var osInfo = getOsInfo();
+    if(osInfo === "mac") {
+        $("#download_btn").attr("href",macUrl);
+    } else if (osInfo === "win64") {
+        $("#download_btn").attr("href",win64Url);
+    } else if (osInfo === "win32") {
+        $("#download_btn").attr("href",win32Url);
+    } else {
+        $("#download_btn").attr("href",unknownUrl);
     }
 }
 function apngviewerInit(){
