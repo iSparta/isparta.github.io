@@ -1,8 +1,13 @@
 function downloadInit(){
-    var macUrl="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-mac.zip";
-    var win32Url="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-win32.zip";
-    var win64Url="https://github.com/iSparta/iSparta/releases/download/2.0/iSparta-win64.zip";
+    var macUrl="https://github.com/iSparta/iSparta/releases/download/2.1/iSparta-osx64.zip";
+    var win32Url="https://github.com/iSparta/iSparta/releases/download/2.1/iSparta-win32.zip";
+    var win64Url="https://github.com/iSparta/iSparta/releases/download/2.1/iSparta-win64.zip";
+    var linuxUrl="https://github.com/iSparta/iSparta/releases/download/2.1/iSparta-linux64.zip";
     var unknownUrl="https://github.com/iSparta/iSparta/releases";
+    $("#mac_link").attr("href",macUrl);
+    $("#windows_link").attr("href",win64Url);
+    $("#linux_link").attr("href",linuxUrl);
+    $("#history_link").attr("href",unknownUrl);
     var osInfo = getOsInfo();
     if(osInfo === "mac") {
         $("#download_btn").attr("href",macUrl);
@@ -10,6 +15,8 @@ function downloadInit(){
         $("#download_btn").attr("href",win64Url);
     } else if (osInfo === "win32") {
         $("#download_btn").attr("href",win32Url);
+    } else if (osInfo === "linux") {
+        $("#download_btn").attr("href",linuxUrl);
     } else {
         $("#download_btn").attr("href",unknownUrl);
     }
