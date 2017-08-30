@@ -1,5 +1,5 @@
 function downloadInit(){
-    var appVersion='2.1.1';
+    var appVersion='2.1.2';
     var macUrl="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta-osx64.zip";
     var win32Url="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta-win32.zip";
     var win64Url="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta-win64.zip";
