@@ -21,7 +21,8 @@ textarea{width:400px;height:110px;line-height: 20px;border:#bababa solid 1px;out
 .header .download-area{width:960px;margin:10px auto;padding:20px;}
 .header .how-area{width:960px;margin:10px auto;padding:20px;}
 .header .download-area .info{float:left;font-size: 14px;padding-top:80px;}
-.header .download-area .preview{float:right;}
+.header .download-area .preview{float:right;width:650px;margin-top:50px;}
+.header .download-area .preview img{width:650px;}
 .header .btn-area{margin:10px 0px;}
 .btn-area #download_btn{display: block;}
 
