@@ -93,3 +93,11 @@ textarea{width:400px;height:110px;line-height: 20px;border:#bababa solid 1px;out
 
 
 
+.donate{
+    float:right;
+}
+.donate p{
+    color:#333;
+    margin-right:10px;
+    cursor: pointer;
+}

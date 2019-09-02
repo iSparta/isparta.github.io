@@ -1,9 +1,9 @@
 function downloadInit(){
-    var appVersion='3.1';
-    var macUrl="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta"+appVersion+"-osx.dmg";
-    var win32Url="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta"+appVersion+"-win32.exe";
-    var win64Url="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta"+appVersion+"-win64.exe";
-    var linuxUrl="https://github.com/iSparta/iSparta/releases/download/"+appVersion+"/iSparta"+appVersion+"-linux.zip";
+    var appVersion='3.2.1';
+    var macUrl="https://github.com/iSparta/iSparta/releases/download/v"+appVersion+"/isparta-"+appVersion+".dmg";
+    var win32Url="https://github.com/iSparta/iSparta/releases/download/v"+appVersion+"/isparta-"+appVersion+"-ia32-win.zip";
+    var win64Url="https://github.com/iSparta/iSparta/releases/download/v"+appVersion+"/isparta-"+appVersion+"-win.zip";
+    var linuxUrl="https://github.com/iSparta/iSparta/releases/download/v"+appVersion+"/isparta-"+appVersion+".tar.gz";
     var unknownUrl="https://github.com/iSparta/iSparta/releases";
     $("#mac_link").attr("href",macUrl);
     $("#windows_link").attr("href",win64Url);
